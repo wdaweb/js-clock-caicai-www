@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Arizonia&family=Felipa&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Arizonia&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+
+        }
+
+        body {
+            background: lightblue;
+
+        }
+
+
+        #clock {
+            width: 300px;
+            height: 300px;
+            background: url('./images/pngtree-roman-clock-number-no-hands-png-image_6181693.png') no-repeat center;
+            border-radius: 50%;
+            position: relative;
+            margin: auto;
+            padding: 1rem;
+            filter: drop-shadow(2px 2px 2px rgba(165, 117, 255, 0.8))
+        }
+
+        #clock:hover {
+            filter: drop-shadow(5px 5px 15px rgba(165, 117, 255, 0.8))
+        }
+
+        #hour {
+            width: 80px;
+            height: 30px;
+            background: url('./images/hour.png') no-repeat center;
+            border-radius: 5px;
+            position: absolute;
+            left: calc(50% - 80px);
+            top: calc(50% - 23px);
+            /* top: 50%;
+            transform: translate(0, -50%); */
+            /* 設定中心點 */
+            transform-origin: right center;
+        }
+
+        #minute {
+            width: 120px;
+            height: 20px;
+            background: url('./images/min.png') no-repeat center;
+            border-radius: 5px;
+            position: absolute;
+            left: calc(50% - 120px);
+            /* 減掉寬度一半 */
+            top: calc(50% - 10px);
+            /* top: 50%;
+            transform: translate(0, -50%); */
+            /* 設定中心點 */
+            transform-origin: right center;
+        }
+
+        #second {
+            width: 135px;
+            height: 20px;
+            background: url('./images/sec.png') no-repeat;
+            border-radius: 5px;
+            position: absolute;
+            left: calc(50% - 135px);
+            /* 減掉寬度一半 */
+            top: calc(50% - 10px);
+            /* top: 50%;
+            transform: translate(0, -50%); */
+            /* 設定中心點 */
+            transform-origin: right center;
+        }
+
+        p {
+            font-family: "Felipa", "Arizonia", cursive;
+            font-size: 72px;
+            color: #fff;
+            text-align: center;
+            padding: 0;
+            text-shadow: 5px 5px 30px #240155;
+        }
+    </style>
+</head>
+
+<body>
+    <span></span>
+    <div class="container">
+
+        <div id="clock">
+            <div id="hour"></div>
+            <div id="minute"></div>
+            <div id="second"></div>
+            <div id="circle">
+            </div>
+        </div>
+        <p id="text">00:00:00</p>
+    </div>
+
+
+
+    <script>
+        const elHour = document.getElementById('hour')
+        const elMinute = document.getElementById('minute')
+        const elSecond = document.getElementById('second')
+        const elText = document.getElementById('text')
+
+        const clock = () => {
+            const date = new Date()
+            const h = date.getHours()
+            const m = date.getMinutes()
+            const s = date.getSeconds()
+            // 360/ 12hr= 30度
+            // 會有90度落差 所以要加90
+            elHour.style.transform = `rotate(${h * 30 + (m / 59 * 30) + 90}deg)`;
+            elMinute.style.transform = `rotate(${m * 6 + 90}deg)`
+            elSecond.style.transform = `rotate(${s * 6 + 90}deg)`
+            elText.innerText = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`
+        }
+        // 避免延遲
+        setInterval(clock, 1000)
+        clock()
+
+        // https://juejin.cn/post/7044091542876717092
+        // 背景
+        // const bgW = document.documentElement.clientWidth
+        // const bgH = document.documentElement.clientHeight
+        // for (let i = 0; i < 150; i++) {
+        //     let span = document.createElement('span')
+        //     document.body.appendChild(span);
+        //     let x = parseInt((Math.random() * bgW));
+        //     let y = parseInt((Math.random() * bgH))
+        //     span.style.left = x + 'px';
+        //     span.style.top = y + 'px';
+        //     span.sytle.zIndex = "0";
+        //     let scale = Math.random() * 1.5;
+        //     span.style.transform = 'scale(' + scale + ', ' + scale + ')';
+        // }
+
+
+    </script>
+</body>
+
+</html>
